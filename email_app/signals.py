@@ -6,6 +6,8 @@ from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.conf import settings
 
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import (From, To, PlainTextContent, HtmlContent, Mail)
 
 from .models import EmailModel
 from .env import secrets
