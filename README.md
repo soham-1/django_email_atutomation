@@ -1,4 +1,5 @@
-# DJANGO_EMAIL_AUTOMATION
+# DJANGO_EMAIL_AUTOMATION 
+![Heroku](https://pyheroku-badge.herokuapp.com/?app=django-gmail-app&path=https://django-gmail-app.herokuapp.com/admin) <br>
 This website is hosted on heroku and integrates sendgrid(twillio) to send emails to users containing the current temperature of selected city
 heroku app - [https://django-gmail-app.herokuapp.com/admin](https://django-gmail-app.herokuapp.com/admin)
 
@@ -8,6 +9,7 @@ password - patkar
 
 ## set up the project locally
 ```sh
+pip install -r requirements.txt
 py manage.py makemigrations
 py manage.py migrate
 py manage.py collectstatic
