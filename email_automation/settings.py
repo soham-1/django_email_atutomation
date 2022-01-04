@@ -25,7 +25,7 @@ SECRET_KEY = 'n6kz*&)4y!k7d$0d4+f44rk$9blenj*ujicnme_@b(4n_g)$5v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'django-gmail-app.herokuapp.com']
 
 
 # Application definition
