@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.conf import settings
 
+
 from .models import EmailModel
 from .env import secrets
 
@@ -28,14 +29,19 @@ def send_gmail(sender, instance, **kwargs):
         "smoke": "\N{fog}",
         "snow": "\N{snowflake}"
     }
-    
-    try:
-        res_weather = data['weather'][0]['main'].lower()
-        if res_weather in weather_emoticons:
-            emoticon = weather_emoticons[res_weather]
 
-        message = f"The current temperature in {instance.city} is {data['main']['temp']} C {emoticon}"
-        subject = "Hi " + instance.name + ", interested in our services"
-        send_mail(subject, message, settings.EMAIL_HOST_USER, [instance.email], fail_silently=False)
-    except Exception as e:
-        print(traceback.format_exc())
+    res_weather = data['weather'][0]['main'].lower()
+    if res_weather in weather_emoticons:
+        emoticon = weather_emoticons[res_weather]
+
+    sendgrid_client = SendGridAPIClient(api_key=secrets.SENDGRID_API_KEY)
+    from_email = From(secrets.EMAIL_HOST_USER)
+    to_email = To(instance.email)
+    subject = "Hi " + instance.name + ", interested in our services"
+    plain_text_content = PlainTextContent(
+        f"The current temperature in {instance.city} is {data['main']['temp']} C {emoticon}"
+    )
+    message = Mail(from_email, to_email, subject, plain_text_content)
+    response = sendgrid_client.send(message=message)
+    print(response)
+    return
